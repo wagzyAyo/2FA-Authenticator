@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config()
+require('dotenv').config();
+const authRoute = require('./Routes/authRoutes')
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
@@ -15,7 +16,8 @@ mongoose.connect(mongoURI)
     (err)=>{
         console.log(`Error connecting to database ${err}`)
     }
-)
+);
+app.use('/api/auth', authRoute)
 
 
 app.get("/", (req, res)=>{
