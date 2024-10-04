@@ -7,7 +7,7 @@ const login = async (req, res)=>{
     const {email, password} = req.body
 
     const user = await userModel.findOne({email});
-    console.log(user._id)
+    //console.log(user._id)
     if (!user){
 
         return res.status(401).json({message: "No user found with this email"})
