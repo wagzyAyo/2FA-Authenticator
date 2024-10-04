@@ -6,6 +6,11 @@ const token = require('../auth/genToken')
 const login = async (req, res)=>{
     const {email, password} = req.body
 
+    console.log({
+        email,
+        password
+    })
+
     const user = await userModel.findOne({email});
     //console.log(user._id)
     if (!user){
@@ -30,6 +35,10 @@ const login = async (req, res)=>{
 const signUp = async (req, res) =>{
     const {email, password} = req.body
 
+    console.log({
+        email,
+        password
+    })
     if (!email || !password){
        return res.status(401).json({message: "Please provide email and password"})
     }
