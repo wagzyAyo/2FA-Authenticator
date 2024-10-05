@@ -1,5 +1,14 @@
 const mongoose = require('mongoose');
 
+const apps = new mongoose.Schema({
+    'name': {
+        type: String,
+        required: true,
+    },
+    'Date': {
+        type: String,
+    }
+})
 
 const userSchema = new mongoose.Schema( {
     'email' : {
@@ -11,6 +20,9 @@ const userSchema = new mongoose.Schema( {
         required: true,
         type: String
     },
+    'apps': [
+        apps
+    ]
 })
 
 const userModel = mongoose.model("userAccount", userSchema);
