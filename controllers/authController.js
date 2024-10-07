@@ -24,7 +24,12 @@ const login = async (req, res)=>{
             return res.status(401).json({message: "Email and password did not match"})
         }
         token(res, user._id)
-        return res.status(200).json({message: "Authorized login"})
+        const userData = {
+            id: user._id,
+            mail: user.email,
+            apps: user.apps
+        }
+        return res.status(200).json({message: userData})
     } catch (error) {
         console.log(error);
         return res.status(500).json({message: "Internal server error"})
@@ -44,7 +49,7 @@ const signUp = async (req, res) =>{
     }
 
     //Check if user exist
-    const userExist = await userModel.findOne({email})
+    const userExist = await userModel.findOne({email: email.toLowerCase()})
     if(userExist){
         return res.status(409).json({message: "Email already exist"})
     }
@@ -54,12 +59,17 @@ const signUp = async (req, res) =>{
         const SALT = parseInt(process.env.SALT) || 10
        const hashedPassword = await bcrypt.hash(password, SALT)
         const newUser = userModel({
-            email: email,
+            email: email.toLowerCase(),
             password: hashedPassword
         })
         await newUser.save();
         token(res, newUser._id);
-        return res.status(200).json({message: "Account created"})
+        const userData = {
+            id: user._id,
+            mail: user.email,
+            apps: user.apps
+        }
+        return res.status(200).json({message: userData})
         } catch (error) {
             console.log(error)
             return res.status(500).json({message: "Error creating account"})
