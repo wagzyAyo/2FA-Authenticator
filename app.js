@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
-app.use(cookieParser)
+app.use(cookieParser())
 const PORT = process.env.PORT || 3000;
 const mongoURI = process.env.mongoUri;
 mongoose.connect(mongoURI)
