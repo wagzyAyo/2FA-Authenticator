@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const authRoute = require('./Routes/authRoutes');
 const cors = require('cors')
-const addApp = require('./Routes/addApp')
+const addApp = require('./Routes/addApp');
+const getApps = require('./Routes/getApps');
 const cookieParser = require('cookie-parser')
 
 const app = express();
@@ -25,6 +26,7 @@ mongoose.connect(mongoURI)
 );
 app.use('/api/auth', authRoute);
 app.use('/api/addapp', addApp);
+app.use('/api/getapps', getApps);
 
 
 app.get("/", (req, res)=>{
