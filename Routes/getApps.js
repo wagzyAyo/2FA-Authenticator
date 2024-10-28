@@ -5,6 +5,6 @@ const getApps = require('../controllers/getAppsController');
 
 
 //Api prefix api/getapps
-route.post('/', authToken, getApps)
+route.get('/', authToken, getApps)
 
 module.exports = route
