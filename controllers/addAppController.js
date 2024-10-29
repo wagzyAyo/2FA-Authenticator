@@ -1,3 +1,4 @@
+const userModel = require("../models/model");
 
 
 const addApp = async(req, res) =>{
@@ -10,7 +11,16 @@ const addApp = async(req, res) =>{
     if(!appName){
         return res.status(400).json({message: 'App name required'})
     }
+
+    
     try {
+        const userData = await userModel.findOne({email: user.email});
+        const appList = userData.apps;
+        const appExist = appList.some(app => app.name === appName);
+        if(appExist){
+            return res.status(400).json({message: 'App name already Exist'})
+        }
+
         const newApp = {
             'name': appName,
             'Date': date
