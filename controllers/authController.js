@@ -1,6 +1,6 @@
 const userModel = require('../models/model')
 const bcrypt = require('bcrypt')
-const token = require('../auth/genToken')
+const token = require('../auth/genToken');
 
 
 const login = async (req, res)=>{
@@ -77,4 +77,31 @@ const signUp = async (req, res) =>{
     
 }
 
-module.exports = {login, signUp}
+const BioAuth = async (req, res)=>{
+    const authResult = req.body.result;
+    const user = req.user;
+    const data = await userModel.findOne({email: user.email});
+
+    console.log(authResult)
+    if(!user){
+        return res.status(400).json({message: "Authentication not successful: Login with password"})
+    }
+    
+    try {
+        if(authResult){
+            token(res, user._id)
+            const userData = {
+                id: data._id,
+                email: data.email,
+                apps: data.apps
+            }
+
+            return res.status(200).json({message: userData})
+        }
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({message: 'Internal server error'})
+    }
+}
+
+module.exports = {login, signUp, BioAuth}
