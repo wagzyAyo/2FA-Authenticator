@@ -1,5 +1,5 @@
 # Alpha Authenticator
-![alt text](assets/icon-1024-1024.png)
+![icon-1024-1024.png](icon-1024-1024.png)
 -----
 
 ## Overview
